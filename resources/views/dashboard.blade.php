@@ -491,6 +491,15 @@
             </div>
             <div class="p-3">
                 @forelse(\App\Models\Product::orderBy('created_at', 'desc')->take(5)->get() as $product)
+                    <div>
+                        @if($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 10%; height: 30px; md-2 object-fit: cover; border-radius: 8px;">
+                        @else
+                            <div class="bg-light border rounded d-flex align-items-center justify-content-center" style="height: 120px;">
+                                <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+                            </div>
+                        @endif
+                    </div>
                     <div style="padding: 1rem 0; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h6 style="margin: 0; font-weight: 600; color: #2c3e50;">{{ $product->name }}</h6>

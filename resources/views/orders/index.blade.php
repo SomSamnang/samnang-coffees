@@ -32,6 +32,8 @@
         padding-bottom: 1.5rem;
         margin-bottom: 2rem;
         border-bottom: 2px solid #dee2e6;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .btn-filter {
@@ -305,15 +307,25 @@
 
     <!-- Category Filters -->
     <div class="filter-buttons">
-        <a href="{{ route('orders.index') }}" class="btn btn-filter {{ !request('category') ? 'active' : '' }}">
-            <i class="bi bi-grid"></i> All
-        </a>
-        @foreach($categories as $category)
-            <a href="{{ route('orders.index', ['category' => $category->slug]) }}" 
-               class="btn btn-filter {{ request('category') == $category->slug ? 'active' : '' }}">
-                <i class="bi bi-tag"></i> {{ $category->name }}
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{{ route('orders.index') }}" class="btn btn-filter {{ !request('category') ? 'active' : '' }}">
+                <i class="bi bi-grid"></i> All
             </a>
-        @endforeach
+            @foreach($categories as $category)
+                <a href="{{ route('orders.index', ['category' => $category->slug]) }}" 
+                   class="btn btn-filter {{ request('category') == $category->slug ? 'active' : '' }}">
+                    <i class="bi bi-tag"></i> {{ $category->name }}
+                </a>
+            @endforeach
+        </div>
+
+        <form action="{{ route('orders.index') }}" method="GET" class="d-flex gap-2">
+            @if(request('category'))
+                <input type="hidden" name="category" value="{{ request('category') }}">
+            @endif
+            <input type="text" name="search" class="form-control" placeholder="Search Order ID or Customer..." value="{{ request('search') }}" style="width: 250px;">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+        </form>
     </div>
 
     @if($orders->isEmpty())
@@ -398,12 +410,7 @@
             </table>
         </div>
 
-        <!-- Pagination -->
-        @if($orders->hasPages())
-            <nav class="mt-4">
-                {{ $orders->links() }}
-            </nav>
-        @endif
+       
     @endif
 </div>
 @endsection

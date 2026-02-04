@@ -30,6 +30,15 @@
                     <p><strong>Category:</strong> {{ $product->category->name }}</p>
                     <p><strong>Price:</strong> <span class="h5 text-success">${{ number_format($product->price, 2) }}</span></p>
                     <p><strong>Stock:</strong> {{ $product->stock }} units</p>
+                    <p><strong>Image</strong></p>
+                    @if($product->image)
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded mb-3" style="max-height: 200px;">
+                    @else
+                        <div class="bg-light border rounded d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                    @endif
+                    
                     <p><strong>Status:</strong> 
                         @if($product->is_active)
                             <span class="badge bg-success">Active</span>

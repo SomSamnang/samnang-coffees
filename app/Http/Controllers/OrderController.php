@@ -28,6 +28,16 @@ class OrderController extends Controller
             });
         }
 
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('id', 'like', "%{$search}%")
+                  ->orWhereHas('customer', function ($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
         $orders = $query->paginate(15)->withQueryString();
         $categories = Category::where('is_active', true)->get();
 

@@ -94,6 +94,16 @@
             <div class="detail-value">{{ $category->name }}</div>
         </div>
         <div class="detail-row">
+            <div class="detail-label">Image</div>
+            <div class="detail-value">
+                @if($category->image)
+                    <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="max-width: 200px; border-radius: 8px;">
+                @else
+                    <span class="text-muted">No image available</span>
+                @endif
+            </div>
+        </div>
+        <div class="detail-row">
             <div class="detail-label">Slug</div>
             <div class="detail-value">{{ $category->slug }}</div>
         </div>
@@ -125,6 +135,54 @@
                 <i class="bi bi-pencil"></i> Edit Category
             </a>
         </div>
+    </div>
+
+    <div class="details-container mt-4">
+        <h3 class="mb-3">Products in this Category</h3>
+        @if($category->products->count() > 0)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($category->products as $product)
+                            <tr>
+                                <td>
+                                    @if($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                                    @else
+                                        <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #ccc;">
+                                            <i class="bi bi-image"></i>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>{{ $product->name }}</td>
+                                <td>${{ number_format($product->price, 2) }}</td>
+                                <td>
+                                    @if($product->is_active)
+                                        <span class="badge bg-success">Active</span>
+                                    @else
+                                        <span class="badge bg-danger">Inactive</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info text-white">View</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-muted">No products found in this category.</p>
+        @endif
     </div>
 </div>
 @endsection

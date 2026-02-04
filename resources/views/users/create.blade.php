@@ -49,7 +49,7 @@
                             <label for="password_confirmation" class="form-label">Confirm Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                         </div>
-
+                
                         <div class="mb-3">
                             <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
                             <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
@@ -61,8 +61,18 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        <div class="d-flex gap-2">
+                            <div>
+                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+                                <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                            </select>
+                            @error('status')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="d-flex gap-2 mt-4">
                             <button type="submit" class="btn btn-primary">Create User</button>
                             <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>

@@ -605,19 +605,20 @@
                             <span>KDS</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ url('/settings') }}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
-                            <i class="bi bi-gear-fill"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
+            
                     <li>
                         <a href="{{ url('/customers') }}" class="nav-link {{ request()->is('customers*') ? 'active' : '' }}">
                             <i class="bi bi-people"></i>
                             <span>Customers</span>
                         </a>
                     </li>
-
+                 <li class="sidebar-label" style="margin-top: 1.5rem;">System</li>
+                    <li>
+                        <a href="{{ url('/settings') }}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
+                            <i class="bi bi-gear-fill"></i>
+                            <span>Settings QR Bank</span>
+                        </a>
+                    </li>
                     @if(Auth::user()->isAdmin())
                         <li class="sidebar-label" style="margin-top: 1.5rem;">Administration</li>
                         <li>

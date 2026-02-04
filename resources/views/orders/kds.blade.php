@@ -55,12 +55,10 @@
         $qrExists = \Illuminate\Support\Facades\Storage::disk('public')->exists($qrPath);
         $qrUrl = $qrExists ? asset('storage/' . $qrPath) . '?v=' . \Illuminate\Support\Facades\Storage::disk('public')->lastModified($qrPath) : null;
     @endphp
-    <div class="kds-header">
-        <h2 class="m-0 text-white"><i class="bi bi-display"></i> Kitchen Display System</h2>
+    <div class="kds-header mb-3">
+        <h2 class="m-0 text-white"><i class="bi bi-display"><a href="{{ route('dashboard') }}" class="text-white text-decoration-none"> Kitchen Display System</a></i></h2>
         <div class="text-end">
-            <span id="clock" class="fs-4 fw-bold font-monospace text-white me-3"></span>
-           
-            <a href="{{ route('dashboard') }}" class="btn btn-outline-light btn-sm">Exit KDS</a>
+              <h4 class="m-0" style="flex-basis: 100%; ">Date: {{ \Carbon\Carbon::now()->timezone('Asia/Phnom_Penh')->format('M d, Y h:i A') }}</h4>
         </div>
     </div>
 

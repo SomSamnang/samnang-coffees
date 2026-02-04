@@ -209,6 +209,17 @@
         </a>
     </div>
 
+    <!-- Search Filter -->
+    <div class="mb-4 d-flex justify-content-end">
+        <form action="{{ route('categories.index') }}" method="GET" class="d-flex gap-2">
+            <input type="text" name="search" class="form-control" placeholder="Search categories..." value="{{ request('search') }}" style="width: 250px;">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+            @if(request('search'))
+                <a href="{{ route('categories.index') }}" class="btn btn-secondary" title="Clear Search"><i class="bi bi-x-lg"></i></a>
+            @endif
+        </form>
+    </div>
+
     @if($categories->isEmpty())
         <!-- Empty State -->
         <div class="empty-state">
@@ -221,12 +232,15 @@
             </a>
         </div>
     @else
+      
+
         <!-- Categories Table -->
         <div class="categories-table-container">
             <table class="table categories-table">
                 <thead>
                     <tr>
                          <th>ID</th>
+                        <th>Image</th>
                         <th>Category Name</th>
                         <th>Status</th>
                         <th>Sort Order</th>
@@ -239,6 +253,15 @@
                     @foreach($categories as $category)
                         <tr>
                             <td>{{ $category->id }}</td>
+                            <td>
+                                @if($category->image)
+                                    <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                                @else
+                                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #ccc;">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                @endif
+                            </td>
                             
                             <td>
                                 <div class="category-name">
